@@ -4,7 +4,6 @@ from django.db.models import Q
 from .models import Item,Category
 from .forms import NewItemForm, EditItemForm
 
-
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     is_author = request.user == item.author
@@ -48,8 +47,22 @@ def new_item(request):
             'form': form,
             'title': 'Yangi mahsulot qoshish'
         })
+from django.shortcuts import render
+from django import forms
 
+class NumberForm(forms.Form):
+    son = forms.DecimalField()
+def my_view(request):
+    if request.method == 'POST':
+        form = NumberForm(request.POST)
+        if form.is_valid():
+            son = form.cleaned_data['son']
+            # Tasdiqlangan son bilan qo'shimcha ishlarni bajaring
+            return render(request, 'muaffaqiyat.html', {'son': son})
+    else:
+        form = NumberForm()
 
+    return render(request, 'forma.html', {'form': form})
 @login_required
 def delete(request, pk):
     item = get_object_or_404(Item, pk=pk, author=request.user)

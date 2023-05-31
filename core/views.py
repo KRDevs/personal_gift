@@ -12,7 +12,6 @@ def index(request):
         'items': items,
     })
 
-
 def contact(request):
     return render(request, 'core/contact.html')
 
