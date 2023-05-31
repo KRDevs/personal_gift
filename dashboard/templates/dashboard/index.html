@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title%}Dashboard{% endblock%}
+<div class="px-6 py-6">
+    {% block content%}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="text-center text-2xl mb-12">Mening mahsulotlarim</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in items%}
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="{% url 'item:detail' item.id%}">
+                    <img class="object-contain md:object-scale-down h-48 w-96 p-8 rounded-t-lg" src="{{item.image.url}}"
+                         alt="product image"/>
+                </a>
+                <div class="px-5 pb-5">
+                    <a href="{% url 'item:detail' item.id%}">
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                            {{item.name}}</h5>
+                    </a>
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl font-bold text-gray-900 dark:text-white">{{item.price}} UZS</span>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    {% endblock %}
+</div>
