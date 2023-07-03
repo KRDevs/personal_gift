@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-from .models import Item,Category
+from .models import Item, Category
 from .forms import NewItemForm, EditItemForm
+
 
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -17,18 +18,18 @@ def item_detail(request, pk):
 
 def items(request):
     items = Item.objects.filter(is_sold=False)
-    categories=Category.objects.all()
-    category_id=request.GET.get('category',0)
+    categories = Category.objects.all()
+    category_id = request.GET.get('category', 0)
     query = request.GET.get('query', '')
     if query:
         items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
     if category_id:
-        items=items.filter(category_id=category_id)
+        items = items.filter(category_id=category_id)
     return render(request, 'item/items.html', {
         'items': items,
         'query': query,
-        'categories':categories,
-        'category_id':int(category_id),
+        'categories': categories,
+        'category_id': int(category_id),
     })
 
 
@@ -47,22 +48,8 @@ def new_item(request):
             'form': form,
             'title': 'Yangi mahsulot qoshish'
         })
-from django.shortcuts import render
-from django import forms
 
-class NumberForm(forms.Form):
-    son = forms.DecimalField()
-def my_view(request):
-    if request.method == 'POST':
-        form = NumberForm(request.POST)
-        if form.is_valid():
-            son = form.cleaned_data['son']
-            # Tasdiqlangan son bilan qo'shimcha ishlarni bajaring
-            return render(request, 'muaffaqiyat.html', {'son': son})
-    else:
-        form = NumberForm()
 
-    return render(request, 'forma.html', {'form': form})
 @login_required
 def delete(request, pk):
     item = get_object_or_404(Item, pk=pk, author=request.user)

@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 asgiref==3.7.1
 Django==4.2.1
 Pillow==9.5.0
 sqlparse==0.4.4
 typing_extensions==4.6.2
 tzdata==2023.3
+=======
+asgiref==3.7.1
+Django==4.2.1
+Pillow==9.5.0
+sqlparse==0.4.4
+typing_extensions==4.6.2
+tzdata==2023.3
+>>>>>>> d500481ebb6d925add6c4090ed9eb17889304ebd
